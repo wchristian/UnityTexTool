@@ -140,6 +140,7 @@ namespace UnityTexTool.UnityEngine
                 case TextureFormat.ARGB32:
                     pos = 0;
                     outPos = 0;
+                    output = new byte[width * height * 4];
                     for (int y = 0; y < height; y++)
                     {
                         for (int x = 0; x < width; x++)
