@@ -53,8 +53,8 @@ namespace UnityTexTool.UnityEngine
             {
                 using (EndianBinaryReader br = new EndianBinaryReader(ms , Endian.LittleEndian))
                 {
-                    int name_length = br.ReadInt32();
-                    this.name = Encoding.UTF8.GetString(br.ReadBytes(name_length));
+                    // int name_length = br.ReadInt32();
+                    // this.name = Encoding.UTF8.GetString(br.ReadBytes(name_length));
                     var pos = br.BaseStream.Position;
                     if (pos % 4 != 0)
                     {
