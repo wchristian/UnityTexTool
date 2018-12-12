@@ -116,15 +116,15 @@ namespace UnityTexTool.UnityEngine {
                     output = new byte[width * height * 4];
                     for (int y = 0; y < height; y++) {
                         for (int x = 0; x < width; x++) {
-                            var fA = sourceData[pos];
-                            var fR = sourceData[pos + 1];
-                            var fG = sourceData[pos + 2];
-                            var fB = sourceData[pos + 3];
+                            var fR = sourceData[pos];
+                            var fG = sourceData[pos + 1];
+                            var fB = sourceData[pos + 2];
+                            var fA = sourceData[pos + 3];
 
-                            output[outPos] = fR;
-                            output[outPos + 1] = fG;
-                            output[outPos + 2] = fB;
-                            output[outPos + 3] = fA;
+                            output[outPos] = fA;
+                            output[outPos + 1] = fR;
+                            output[outPos + 2] = fG;
+                            output[outPos + 3] = fB;
 
                             pos += 4;
                             outPos += 4;
