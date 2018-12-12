@@ -7,17 +7,14 @@ using System.Runtime.InteropServices;
 /// You can then download the appropriate Adreno SDK from
 /// https://developer.qualcomm.com/mobile-development/maximize-hardware/mobile-gaming-graphics-adreno
 /// </summary>
-namespace ATI.TextureConverter
-{
+namespace ATI.TextureConverter {
     // CONSTS/ENUMS
     //=============================================================================
     //
     // TQonvertImage.nFormat: Image format 
     //
     // Paletted formats are no longer supported and are included for legacy purposes only
-    internal enum QFormat : uint
-    {
-
+    internal enum QFormat : uint {
         // General formats
         Q_FORMAT_RGBA_8UI = 1,
         Q_FORMAT_RGBA_8I,
@@ -142,9 +139,7 @@ namespace ATI.TextureConverter
     //
     // TFormatFlags.nEncodeFlag: Image encoding flags 
     //
-    internal enum TEncodeFlag
-    {
-
+    internal enum TEncodeFlag {
         Q_FLAG_ENCODE_NONE = 0,
         Q_FLAG_ENCODE_DEFAULT = 0,
         Q_FLAG_ENCODE_ATITC_FAST,
@@ -153,9 +148,7 @@ namespace ATI.TextureConverter
     //
     // TFormatFlags.nScaleFilter: Scaling option to use when creating scaled output (for example for mipmap generation)
     //
-    internal enum TScaleFilterFlag
-    {
-
+    internal enum TScaleFilterFlag {
         Q_FLAG_SCALEFILTER_DEFAULT = 0,
         Q_FLAG_SCALEFILTER_NEAREST,
         Q_FLAG_SCALEFILTER_MEAN,
@@ -167,9 +160,7 @@ namespace ATI.TextureConverter
     //
     // TFormatFlags.nNormalMap: Describes the algorithm to use for creating normal maps (for bumpmapping)
     //
-    internal enum TNormalMapFlag
-    {
-
+    internal enum TNormalMapFlag {
         Q_FLAG_NORMALMAP_NONE = 0,
         Q_FLAG_NORMALMAP_ROBERTSCROSS,
         Q_FLAG_NORMALMAP_SOBEL,
@@ -179,9 +170,7 @@ namespace ATI.TextureConverter
     //
     // TFormatFlags.nDebugFlag: Debug options
     //
-    internal enum TDebugFlags
-    {
-
+    internal enum TDebugFlags {
         Q_FLAG_DEBUG_DEFAULT = 0,
         Q_FLAG_DEBUG_DISABLE_VERBOSE = 0x00000001,  // Disable verbose error output to stderr
         Q_FLAG_DEBUG_VERSION = 0x00000002,  // Return the library version (MAJOR<<16 | MINOR) as an unsigned int in pOutput->pData
@@ -190,9 +179,7 @@ namespace ATI.TextureConverter
     //
     // Qonvert function Success and Error return values
     //
-    internal enum TReturnCode
-    {
-
+    internal enum TReturnCode {
         Q_SUCCESS = 0,
         Q_ERROR_UNSUPPORTED_DIMENSIONS,
         Q_ERROR_UNSUPPORTED_SRC_FORMAT,
@@ -214,8 +201,7 @@ namespace ATI.TextureConverter
     //
     // Additional format flags, leaving any value to 0 means the library will use a proper default value
     //
-    internal struct TFormatFlags
-    {
+    internal struct TFormatFlags {
 
         /// Specify if the image stride is different then the default (bpp*width)
         public uint nStride;
@@ -258,8 +244,7 @@ namespace ATI.TextureConverter
     }
 
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    internal struct TQonvertImage
-    {
+    internal struct TQonvertImage {
 
         /// Image width
         public uint nWidth;
@@ -284,18 +269,14 @@ namespace ATI.TextureConverter
         public System.IntPtr compressionOptions;
     }
 
-    internal enum CompressionOptionsType
-    {
-
+    internal enum CompressionOptionsType {
         CompType_None = 0,
         CompType_ASTC,
         CompType_ASTC_16,
         CompType_Count
     }
 
-    internal enum ASTCCompressionOptionsSpeed
-    {
-
+    internal enum ASTCCompressionOptionsSpeed {
         ASTC_EXHAUSTIVE = 0,
         ASTC_THOROUGH,
         ASTC_MEDIUM,
@@ -303,46 +284,35 @@ namespace ATI.TextureConverter
         ASTC_VERY_FAST
     }
 
-    internal enum ASTCCompressionOptionsMode
-    {
-
+    internal enum ASTCCompressionOptionsMode {
         ASTC_HDR = 0,
         ASTC_SRGB,
         ASTC_LINEAR
     }
 
-    internal enum ASTCCompressionOptionsDefaultOrCustom
-    {
-
+    internal enum ASTCCompressionOptionsDefaultOrCustom {
         DEFAULT = 0,
         CUSTOM
     }
 
-    internal enum ASTCCompressionOptionsUseBitRate
-    {
-
+    internal enum ASTCCompressionOptionsUseBitRate {
         USE_BITRATE = 0,
         USE_BLOCK_DIMENSIONS
     }
 
-    internal enum ASTCCompressionOptionsCommand
-    {
-
+    internal enum ASTCCompressionOptionsCommand {
         COMPRESS = 0,
         DECOMPRESS
     }
 
-    internal enum ASTC_BIT_FIDELITY
-    {
-
+    internal enum ASTC_BIT_FIDELITY {
         ASTC_8_BIT = 1,
         ASTC_16_BIT,
         ASTC_32_BIT,
     }
 
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    internal struct ASTCOptions
-    {
+    internal struct ASTCOptions {
 
         //These variables are ASTC specific. 
         public int CompressionSpeed;
@@ -376,8 +346,7 @@ namespace ATI.TextureConverter
     }
 
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    internal struct StandardOptions
-    {
+    internal struct StandardOptions {
 
         /// int
         public int ImageType;//Is this a CompressedImage or a DifferenceImage (cacheing only)
@@ -389,8 +358,7 @@ namespace ATI.TextureConverter
         public System.IntPtr CompressionOptions;//The pointer to the compression Options.
     }
 
-    internal partial class NativeMethods
-    {
+    internal partial class NativeMethods {
 
         /// Return Type: unsigned short
         ///nByte: unsigned char
@@ -469,11 +437,9 @@ namespace ATI.TextureConverter
         [System.Runtime.InteropServices.DllImportAttribute("TextureConverter.dll", EntryPoint = "NewStandardOptionsCopy")]
         public static extern System.IntPtr NewStandardOptionsCopy(ref StandardOptions options);
 
-        static T Alloc<T>()
-        {
+        static T Alloc<T>() {
             int typeSize = Marshal.SizeOf(typeof(T));
-            unsafe
-            {
+            unsafe {
                 IntPtr ptr = Marshal.AllocHGlobal(typeSize);
                 byte* basePtr = (byte*)ptr.ToPointer();
                 for (int idx = 0; idx < typeSize; idx++)
@@ -482,23 +448,19 @@ namespace ATI.TextureConverter
             }
         }
 
-        public static TQonvertImage CreateEmptyQonvertImage()
-        {
+        public static TQonvertImage CreateEmptyQonvertImage() {
             return Alloc<TQonvertImage>();
         }
 
-        public static TFormatFlags CreateFormatFlags()
-        {
+        public static TFormatFlags CreateFormatFlags() {
             return Alloc<TFormatFlags>();
         }
 
     }
 
-    public class ATICompressor
-    {
+    public class ATICompressor {
 
-        public enum CompressionFormat
-        {
+        public enum CompressionFormat {
             AtcRgbaExplicitAlpha,
             AtcRgbaInterpolatedAlpha,
             AtcRgb,
@@ -519,13 +481,10 @@ namespace ATI.TextureConverter
         /// <param name="height"></param>
         /// <param name="targetFormat"></param>
         /// <returns></returns>
-        public static byte[] Compress(byte[] data, int width, int height, CompressionFormat targetFormat)
-        {
-            try
-            {
+        public static byte[] Compress(byte[] data, int width, int height, CompressionFormat targetFormat) {
+            try {
                 QFormat format = QFormat.Q_FORMAT_RGBA_8UI;
-                switch (targetFormat)
-                {
+                switch (targetFormat) {
                     case CompressionFormat.AtcRgb:
                         format = QFormat.Q_FORMAT_ATC_RGB;
                         break;
@@ -566,51 +525,43 @@ namespace ATI.TextureConverter
                 var dst = NativeMethods.CreateEmptyQonvertImage();
 
                 var handle = GCHandle.Alloc(data, GCHandleType.Pinned);
-                try
-                {
+                try {
                     src.nWidth = uwidth;
                     src.nHeight = uheight;
                     src.nFormat = (uint)QFormat.Q_FORMAT_RGBA_8UI;
                     src.pData = handle.AddrOfPinnedObject();
-                    
+
 
                     dst.nWidth = uwidth;
                     dst.nHeight = uheight;
                     dst.nFormat = (uint)format;
                     dst.pData = IntPtr.Zero;
 
-                    if (NativeMethods.Qonvert(ref src, ref dst, IntPtr.Zero) != (uint)TReturnCode.Q_SUCCESS)
-                    {
+                    if (NativeMethods.Qonvert(ref src, ref dst, IntPtr.Zero) != (uint)TReturnCode.Q_SUCCESS) {
                         throw new Exception(string.Format("Error getting compressed data size for {0} Compression", format.ToString()));
                     }
 
                     byte[] compressed = new byte[dst.nDataSize];
                     var compressedHandle = GCHandle.Alloc(compressed, GCHandleType.Pinned);
-                    try
-                    {
+                    try {
                         dst.pData = compressedHandle.AddrOfPinnedObject();
 
-                        if (NativeMethods.Qonvert(ref src, ref dst, IntPtr.Zero) != (uint)TReturnCode.Q_SUCCESS)
-                        {
+                        if (NativeMethods.Qonvert(ref src, ref dst, IntPtr.Zero) != (uint)TReturnCode.Q_SUCCESS) {
                             throw new Exception(string.Format("Error getting compressed data size for {0} Compression", format.ToString()));
                         }
                         return compressed;
                     }
-                    finally
-                    {
+                    finally {
                         compressedHandle.Free();
                     }
 
                 }
-                finally
-                {
+                finally {
                     handle.Free();
                 }
             }
-            catch (DllNotFoundException ex)
-            {
-                throw new DllNotFoundException(string.Format("{0} See Documentation for more details.", ex.Message
-                   ));
+            catch (DllNotFoundException ex) {
+                throw new DllNotFoundException(string.Format("{0} See Documentation for more details.", ex.Message));
             }
         }
     }
